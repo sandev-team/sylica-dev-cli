@@ -1,0 +1,37 @@
+{
+  "name": "sylica-dev-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "build": "tsc && pkg . --out-path dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "inquirer": "^12.2.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "pkg": "^5.8.1"
+  },
+  "pkg": {
+    "targets": [
+      "node18-linux-x64",
+      "node18-macos-x64",
+      "node18-win-x64"
+    ],
+    "scripts": "dist/**/*.js",
+    "assets": [
+      "templates/**/*"
+    ]
+  },
+  "bin": {
+    "sylica-dev": "./dist/index.js"
+  }
+}

@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
-    "build": "rm -rf dist/ && tsc && npx gulp",
+    "build": "rm -rf dist/ && rollup -c && npx gulp",
     "build:pkg": "pkg . --out-path dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,17 +14,22 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^12.1.0",
+    "execa": "^9.5.2",
     "inquirer": "^12.2.0",
     "ora": "^8.1.1",
     "picocolors": "^1.1.1",
     "typescript": "^5.7.2"
   },
   "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.1",
     "@types/commander": "^2.12.5",
     "@types/node": "^22.10.2",
     "gulp": "^5.0.0",
     "gulp-shell": "^0.8.0",
-    "pkg": "^5.8.1"
+    "i": "^0.3.7",
+    "npm": "^10.9.2",
+    "pkg": "^5.8.1",
+    "rollup": "^4.28.1"
   },
   "pkg": {
     "targets": [

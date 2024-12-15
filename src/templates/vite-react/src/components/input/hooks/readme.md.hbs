@@ -1,0 +1,1 @@
+This is a folder contains hooks for the component.

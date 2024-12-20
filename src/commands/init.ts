@@ -1,6 +1,8 @@
 import inquirer from 'inquirer';
 import ps from 'picocolors';
-// import fs from 'fs';
+import fs from 'fs';
+import { scanFiles } from '../utils/scan.util';
+import { execSync } from 'child_process';
 // import path from 'path';
 
 export const initCommand = async () => {
@@ -13,6 +15,17 @@ export const initCommand = async () => {
       message: 'Enter the name of your project:',
     },
   ]);
-  
+
+  // // execute the command
+  // const command = `npx create-react-app ${answers.projectName}`;
+  // const result = execSync(command);
+  // console.log(result);
+
+  // log the current directory
+  console.log(process.cwd());
+  // scan files in the current directory
+  const files = scanFiles('.');
+  console.log(files);
+
   console.log(answers);
 };

@@ -1,0 +1,56 @@
+name: CLI Build and Publish with bump version
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  build-and-publish:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]  
+        node-version: [16, 18] 
+
+    steps:
+      # 1. Checkout source code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 9
+          run_install: false
+
+      # 2. Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: pnpm install
+
+      # 4. Build CLI
+      - name: Build CLI
+        run: pnpm build
+
+      # 5. Generate changelog
+      - name: Create Release Pull Request or Publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 6. Package and Publish CLI
+      - name: Publish CLI
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: pnpm deploy:pkg
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      
+
+

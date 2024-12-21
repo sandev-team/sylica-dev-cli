@@ -3,11 +3,20 @@
     "rootDir": "src",
     "outDir": "dist",
     "strict": true,
-    "target": "es6",
-    "module": "commonjs",
+    "target": "ESNext",
+    "module": "ESNext",
     "sourceMap": true,
     "esModuleInterop": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@commands/*": ["./src/commands/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@config/*": ["./src/config/*"],
+    },
   },
-  "include": ["src/**/*"]
+  "include": ["src"],
+  "exclude": ["src/templates","node_modules"]
 }

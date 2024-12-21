@@ -1,24 +1,39 @@
 {
-  "name": "sylica-dev-cli",
-  "version": "1.0.0",
+  "name": "@sylica/dev-cli",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
-  "type": "commonjs",
+  "type": "module",
+  "private": false,
   "scripts": {
-    "build": "tsc && pkg . --out-path dist",
+    "build": "rm -rf dist/ && rollup -c && npx gulp",
+    "deploy:test": "npm publish --dry-run --access public",
+    "deploy:pkg": "npm publish --access public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.11",
     "commander": "^12.1.0",
+    "execa": "^9.5.2",
     "inquirer": "^12.2.0",
-    "picocolors": "^1.1.1"
+    "ora": "^8.1.1",
+    "picocolors": "^1.1.1",
+    "typescript": "^5.7.2"
   },
   "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.1",
+    "@types/commander": "^2.12.5",
     "@types/node": "^22.10.2",
-    "pkg": "^5.8.1"
+    "gulp": "^5.0.0",
+    "gulp-shell": "^0.8.0",
+    "i": "^0.3.7",
+    "npm": "^10.9.2",
+    "pkg": "^5.8.1",
+    "rollup": "^4.28.1"
   },
   "pkg": {
     "targets": [
@@ -32,6 +47,13 @@
     ]
   },
   "bin": {
-    "sylica-dev": "./dist/index.js"
+    "sylica-dev": "dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandev-team/sylica-dev-cli.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   }
 }

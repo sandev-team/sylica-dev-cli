@@ -49,6 +49,16 @@ export const generatePkgCommand = async (name: string) => {
     fs.mkdirSync(outputDir, { recursive: true })
   }
 
+  // input the package manager name option npm or pnpm
+  const pkgManager = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'pkgManager',
+      message: 'Select the package manager',
+      choices: ['npm', 'pnpm', 'yarn'],
+    },
+  ])
+
   // check if the output directory exists
   if (!fs.existsSync(outputDir)) {
     console.error(ps.red(`Output directory ${outputDir} does not exist`))
@@ -96,6 +106,6 @@ export const generatePkgCommand = async (name: string) => {
   spinner.start()
   // install the dependencies
   const cmd = await import('execa')
-  await cmd.execa('npm', ['install'], { cwd: outputDir })
+  await cmd.execa(pkgManager.pkgManager, ['install'], { cwd: outputDir })
   spinner.succeed('Dependencies installed successfully')
 }

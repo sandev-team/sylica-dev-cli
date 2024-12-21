@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rm -rf dist/ && rollup -c && npx gulp",
     "deploy:test": "npm publish --dry-run --access public",
-    "deploy:pkg": "npm publish --access public",
+    "deploy:pkg": "changeset publish --access public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -54,6 +54,8 @@
     "url": "git+https://github.com/sandev-team/sylica-dev-cli.git"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "provenance": true,
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   }
 }

@@ -10,7 +10,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]  
+        # os: [ubuntu-latest, windows-latest, macos-latest]  
+        os: [ubuntu-latest]  
         node-version: [18,20] 
 
     steps:
@@ -42,15 +43,19 @@ jobs:
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
+        with:
+          createGithubReleases: true
+          version: pnpm changeset version
+          publish: pnpm deploy:pkg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
       # 6. Package and Publish CLI
-      - name: Publish CLI
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: pnpm deploy:pkg
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      
+      # - name: Publish CLI
+      #   if: ${{ github.ref == 'refs/heads/main' }} && steps.changesets.outputs.
+      #   run: pnpm deploy:pkg
+      #   env:
+      #     NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
 

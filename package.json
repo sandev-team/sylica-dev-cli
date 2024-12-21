@@ -1,12 +1,14 @@
 {
-  "name": "sylica-dev-cli",
-  "version": "1.0.0",
+  "name": "@sylica/dev-cli",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "type": "module",
+  "private": false,
   "scripts": {
     "build": "rm -rf dist/ && rollup -c && npx gulp",
-    "build:pkg": "pkg . --out-path dist",
+    "deploy:test": "npm publish --dry-run --access public",
+    "deploy:pkg": "npm publish --access public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -43,6 +45,13 @@
     ]
   },
   "bin": {
-    "sylica-dev": "./dist/index.js"
+    "sylica-dev": "dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandev-team/sylica-dev-cli.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   }
 }

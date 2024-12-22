@@ -19,6 +19,7 @@ permissions:
   repository-projects: write
   security-events: read
   statuses: write
+  id-token: write
 
 jobs:
   build-and-publish:

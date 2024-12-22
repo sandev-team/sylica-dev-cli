@@ -7,6 +7,19 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+permissions:
+  actions: read
+  checks: read
+  contents: write
+  deployments: read
+  issues: write
+  discussions: read
+  packages: write
+  pull-requests: write
+  repository-projects: write
+  security-events: read
+  statuses: write
+
 jobs:
   build-and-publish:
     name: Release CLI
@@ -16,11 +29,13 @@ jobs:
         # os: [ubuntu-latest, windows-latest, macos-latest]  
         os: [ubuntu-latest]  
         node-version: [18,20] 
-        
-    permissions:
-      contents: write
-      id-token: write
 
+    outputs:
+      published: ${{ steps.changesets.outputs.published }}
+      publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
+      hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}
+      pullRequestNumber: ${{ steps.changesets.outputs.pullRequestNumber }}
+      
     steps:
       # 1. Checkout source code
       - name: Checkout code
@@ -57,6 +72,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Echo Changeset output
+        run: |
+          echo "Changeset published - ${{ steps.changesets.outputs.published }}"
+          echo "Changeset publishedPackages - ${{ toJSON(steps.changesets.outputs.publishedPackages) }}"
+          echo "Changeset hasChangesets - ${{ steps.changesets.outputs.hasChangesets }}"
+          echo "Changeset pullRequestNumber - ${{ steps.changesets.outputs.pullRequestNumber }}"
 
       # 6. Package and Publish CLI
       # - name: Publish CLI

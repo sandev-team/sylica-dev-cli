@@ -1,5 +1,12 @@
 # @sylica/dev-cli
 
+## 1.0.3
+
+### Patch Changes
+
+- [#9](https://github.com/sandev-team/sylica-dev-cli/pull/9) [`8ddcdca`](https://github.com/sandev-team/sylica-dev-cli/commit/8ddcdca29b4a81fa8f20daecf6e0fbd83107896b) Thanks [@zee-sandev](https://github.com/zee-sandev)! - fix: update template add jsxImportSource
+  add `/** @jsxImportSource @emotion/react */` at index.ts root in template
+
 ## 1.0.2
 
 ### Patch Changes
